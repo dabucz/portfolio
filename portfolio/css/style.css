@@ -26,6 +26,7 @@
     --cursor-blend-mode: difference;
 }
 
+/* Toto je jen ze zatim zkousim ruzne barvy a co je hezci */
 html[data-theme="orange"] {
     --accent: #ff7700;
 }
@@ -243,6 +244,80 @@ h4 {
 
 .logo:hover {
     color: var(--accent);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+[data-nav-flip] {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-flip-text {
+    display: inline-flex;
+    align-items: flex-start;
+    line-height: 1;
+}
+
+.nav-flip-char {
+    --char-index: 0;
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    min-width: 0.6em;
+    height: 1em;
+    overflow: hidden;
+    perspective: 900px;
+}
+
+.nav-flip-char-space {
+    min-width: 0.35em;
+}
+
+.nav-flip-char-face {
+    grid-area: 1 / 1;
+    display: block;
+    color: currentColor;
+    backface-visibility: hidden;
+    transform-origin: center center;
+    transition:
+        transform 1s var(--ease-out-expo),
+        opacity 0.55s var(--ease-out-expo);
+    transition-delay: calc(var(--char-index) * 0.035s);
+    will-change: transform, opacity;
+}
+
+.nav-flip-char-face--top {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+}
+
+.nav-flip-char-face--bottom {
+    transform: translateY(115%) rotateX(-90deg);
+    opacity: 0.15;
+}
+
+[data-nav-flip]:is(:hover, :focus-visible) .nav-flip-char-face--top,
+.index-nav-item:is(:hover, :focus-visible) [data-nav-flip] .nav-flip-char-face--top {
+    transform: translateY(-115%) rotateX(90deg);
+    opacity: 0;
+}
+
+[data-nav-flip]:is(:hover, :focus-visible) .nav-flip-char-face--bottom,
+.index-nav-item:is(:hover, :focus-visible) [data-nav-flip] .nav-flip-char-face--bottom {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
 }
 
 .nav-menu-btn {
@@ -589,24 +664,20 @@ h4 {
     transform-origin: bottom;
 }
 
-.index-nav-img {
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    width: clamp(150px, 20vw, 300px);
-    height: clamp(100px, 14vw, 200px);
-    object-fit: cover;
-    border-radius: var(--radius);
-    opacity: 0;
-    transform: translateY(-40%) scale(0.8);
-    transition: all 0.5s var(--ease-out-expo);
-    pointer-events: none;
-    z-index: -1;
-}
+@media (prefers-reduced-motion: reduce) {
+    .nav-flip-char-face {
+        transition: none;
+    }
 
-.index-nav-item:hover .index-nav-img {
-    opacity: 0.6;
-    transform: translateY(-50%) scale(1);
+    .nav-flip-char-face--bottom {
+        display: none;
+    }
+
+    [data-nav-flip]:is(:hover, :focus-visible) .nav-flip-char-face--top,
+    .index-nav-item:is(:hover, :focus-visible) [data-nav-flip] .nav-flip-char-face--top {
+        transform: none;
+        opacity: 1;
+    }
 }
 
 .index-footer {
@@ -1332,10 +1403,6 @@ h4 {
         gap: 0.5rem;
     }
 
-    .index-nav-img {
-        display: none;
-    }
-
     .index-nav-arrow {
         display: none;
     }
@@ -1377,6 +1444,8 @@ h4 {
 
 /* ============================================
    PAGE VIEW TRANSITIONS
+
+   Nevim proc toto proboha funguje jen obcas.
    ============================================ */
 
 @view-transition {

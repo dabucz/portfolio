@@ -175,6 +175,55 @@
     }
 
     /* ------------------------------------------
+       NAV LETTER FLIP HOVER
+       ------------------------------------------ */
+
+    function initNavFlipText() {
+        const flipTargets = document.querySelectorAll("[data-nav-flip]");
+        if (!flipTargets.length) return;
+
+        flipTargets.forEach((el) => {
+            if (el.dataset.navFlipReady === "true") return;
+
+            const label = (el.dataset.navFlip || el.textContent || "").trim();
+            if (!label) return;
+
+            const visual = document.createElement("span");
+            visual.className = "nav-flip-text";
+            visual.setAttribute("aria-hidden", "true");
+
+            [...label].forEach((char, index) => {
+                const letter = document.createElement("span");
+                letter.className = "nav-flip-char";
+                letter.style.setProperty("--char-index", index);
+
+                if (char === " ") {
+                    letter.classList.add("nav-flip-char-space");
+                }
+
+                const top = document.createElement("span");
+                top.className = "nav-flip-char-face nav-flip-char-face--top";
+                top.textContent = char === " " ? "\u00A0" : char;
+
+                const bottom = document.createElement("span");
+                bottom.className = "nav-flip-char-face nav-flip-char-face--bottom";
+                bottom.textContent = char === " " ? "\u00A0" : char;
+
+                letter.append(top, bottom);
+                visual.appendChild(letter);
+            });
+
+            const srOnly = document.createElement("span");
+            srOnly.className = "sr-only";
+            srOnly.textContent = label;
+
+            el.textContent = "";
+            el.append(visual, srOnly);
+            el.dataset.navFlipReady = "true";
+        });
+    }
+
+    /* ------------------------------------------
        HEADING SPLIT TEXT (GSAP SplitText)
        ------------------------------------------ */
 
@@ -537,6 +586,7 @@
 
     function init() {
         initThemeToggle();
+        initNavFlipText();
         initLenis();
         initCursor();
         initHeadingSplitText();

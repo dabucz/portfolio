@@ -52,3 +52,8 @@ Web se sklada ze 4 stranek:
 - https://www.itsjay.us/
 - https://alextkachev.com/
 - https://arocksworld.com/
+
+
+# Figma
+- Figma design neni finalni, toto je jen prvni nastrel, ktery budu jeste upravovat.
+- https://www.figma.com/design/oKdrajQT61cU7thIjLCiB9/Portfolio?node-id=0-1&t=5YVjBlXE2SgS4Y2j-1
