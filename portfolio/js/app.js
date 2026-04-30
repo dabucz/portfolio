@@ -4,69 +4,22 @@
     let lenis = null;
 
     /* ------------------------------------------
-       THEME TOGGLE (green / orange)
+       FEATURE FLAGS
        ------------------------------------------ */
 
-    function initThemeToggle() {
-        const root = document.documentElement;
-        const themeStorageKey = "portfolio-theme";
-
-        function getStoredTheme() {
-            const stored = localStorage.getItem(themeStorageKey);
-            return stored === "green" || stored === "orange" ? stored : null;
-        }
-
-        function updateToggleLabels(theme) {
-            const nextTheme = theme === "green" ? "orange" : "green";
-            document.querySelectorAll(".theme-toggle").forEach((btn) => {
-                btn.textContent = nextTheme;
-                btn.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
-            });
-        }
-
-        function applyTheme(theme) {
-            root.setAttribute("data-theme", theme);
-            updateToggleLabels(theme);
-        }
-
-        function toggleTheme() {
-            const currentTheme = root.getAttribute("data-theme") || "green";
-            const nextTheme = currentTheme === "green" ? "orange" : "green";
-            localStorage.setItem(themeStorageKey, nextTheme);
-            applyTheme(nextTheme);
-        }
-
-        const initialTheme = getStoredTheme() || "green";
-        applyTheme(initialTheme);
-
-        const headerInners = document.querySelectorAll(".header-inner");
-        headerInners.forEach((headerInner) => {
-            const navBtn = headerInner.querySelector(".nav-menu-btn");
-            if (!navBtn || headerInner.querySelector(".theme-toggle")) return;
-
-            let actions = headerInner.querySelector(".header-actions");
-            if (!actions) {
-                actions = document.createElement("div");
-                actions.className = "header-actions";
-                headerInner.insertBefore(actions, navBtn);
-                actions.appendChild(navBtn);
-            }
-
-            const toggleBtn = document.createElement("button");
-            toggleBtn.className = "theme-toggle magnetic";
-            toggleBtn.type = "button";
-            toggleBtn.addEventListener("click", toggleTheme);
-            actions.insertBefore(toggleBtn, navBtn);
-        });
-
-        updateToggleLabels(initialTheme);
-    }
+    const CONFIG = {
+        mouseEnabled: true,
+    };
 
     /* ------------------------------------------
        CUSTOM CURSOR
        ------------------------------------------ */
 
     function initCursor() {
+        if (!CONFIG.mouseEnabled) {
+            document.body.classList.add("cursor-disabled");
+            return;
+        }
         const cursor = document.querySelector(".cursor");
         if (!cursor || window.matchMedia("(pointer: coarse)").matches) return;
 
@@ -74,8 +27,15 @@
         let cursorY = 0;
         let targetX = 0;
         let targetY = 0;
+        let hasEntered = false;
+
+        cursor.classList.add("hidden");
 
         document.addEventListener("mousemove", (e) => {
+            if (!hasEntered) {
+                hasEntered = true;
+                cursor.classList.remove("hidden");
+            }
             targetX = e.clientX;
             targetY = e.clientY;
         });
@@ -92,11 +52,13 @@
         updateCursor();
 
         const hoverables = document.querySelectorAll(
-            'a, button, input, textarea, .project-card, .skill-tag, [data-hover="true"]'
+            'a, button, input, textarea, .mosaic-item, .skill-tag, [data-hover="true"]'
         );
 
         hoverables.forEach((el) => {
-            el.addEventListener("mouseenter", () => cursor.classList.add("hovering"));
+            el.addEventListener("mouseenter", () => {
+                if (!el.matches(".btn")) cursor.classList.add("hovering");
+            });
             el.addEventListener("mouseleave", () => cursor.classList.remove("hovering"));
         });
 
@@ -330,6 +292,7 @@
        ------------------------------------------ */
 
     function initMagnetic() {
+        if (!CONFIG.mouseEnabled) return;
         const magneticEls = document.querySelectorAll(".magnetic");
 
         magneticEls.forEach((el) => {
@@ -399,20 +362,6 @@
             }
 
             lastScroll = scrollY;
-        });
-    }
-
-    /* ------------------------------------------
-       MARQUEE SPEED ON SCROLL (Lenis velocity)
-       ------------------------------------------ */
-
-    function initMarqueeScrollEffect() {
-        const marqueeTrack = document.querySelector(".marquee-track");
-        if (!marqueeTrack || !lenis) return;
-
-        lenis.on("scroll", ({ velocity }) => {
-            const speedMultiplier = 1 + Math.abs(velocity) * 0.05;
-            marqueeTrack.style.animationDuration = `${25 / speedMultiplier}s`;
         });
     }
 
@@ -509,26 +458,27 @@
     }
 
     /* ------------------------------------------
-       TILT EFFECT ON PROJECT CARDS
+       TILT EFFECT ON MOSAIC ITEMS
        ------------------------------------------ */
 
     function initCardTilt() {
-        const cards = document.querySelectorAll(".project-card");
+        if (!CONFIG.mouseEnabled) return;
+        const items = document.querySelectorAll(".mosaic-item");
 
-        cards.forEach((card) => {
-            card.addEventListener("mousemove", (e) => {
-                const rect = card.getBoundingClientRect();
+        items.forEach((item) => {
+            item.addEventListener("mousemove", (e) => {
+                const rect = item.getBoundingClientRect();
                 const x = (e.clientX - rect.left) / rect.width - 0.5;
                 const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-                card.style.transform = `translateY(-8px) perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+                item.style.transform = `perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
             });
 
-            card.addEventListener("mouseleave", () => {
-                card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
-                card.style.transform = "translateY(0) perspective(800px) rotateY(0) rotateX(0)";
+            item.addEventListener("mouseleave", () => {
+                item.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
+                item.style.transform = "perspective(800px) rotateY(0) rotateX(0)";
                 setTimeout(() => {
-                    card.style.transition = "";
+                    item.style.transition = "";
                 }, 500);
             });
         });
@@ -581,11 +531,34 @@
     }
 
     /* ------------------------------------------
+       BUTTON CURSOR-ORIGIN HOVER
+       ------------------------------------------ */
+
+    function initButtonHover() {
+        if (!CONFIG.mouseEnabled) return;
+        const cursor = document.querySelector(".cursor");
+
+        document.querySelectorAll(".btn").forEach((btn) => {
+            btn.addEventListener("mouseenter", (e) => {
+                const r = btn.getBoundingClientRect();
+                btn.style.setProperty("--btn-x", `${e.clientX - r.left}px`);
+                btn.style.setProperty("--btn-y", `${e.clientY - r.top}px`);
+                if (cursor) {
+                    cursor.classList.remove("hovering");
+                    cursor.classList.add("btn-hover");
+                }
+            });
+            btn.addEventListener("mouseleave", () => {
+                if (cursor) cursor.classList.remove("btn-hover");
+            });
+        });
+    }
+
+    /* ------------------------------------------
        INIT ALL
        ------------------------------------------ */
 
     function init() {
-        initThemeToggle();
         initNavFlipText();
         initLenis();
         initCursor();
@@ -596,12 +569,12 @@
         initMagnetic();
         initParallax();
         initHeaderScroll();
-        initMarqueeScrollEffect();
         initClock();
         initIndexAnimations();
         initContactForm();
         initCardTilt();
         initCounters();
+        initButtonHover();
     }
 
     if (document.readyState === "loading") {

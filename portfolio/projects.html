@@ -24,7 +24,14 @@
     <header class="site-header">
         <div class="header-inner">
             <a href="home.html" class="logo magnetic">Portfolio</a>
-            <a href="index.html" class="nav-menu-btn magnetic">Menu</a>
+            <a href="index.html" class="nav-menu-btn magnetic" aria-label="Open menu">
+                <span class="nav-menu-label">Menu</span>
+                <span class="burger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </a>
         </div>
     </header>
 
@@ -37,9 +44,9 @@
                     <div class="page-hero-content">
                         <p class="page-hero-label" data-animate="fade-up">02 / Projects</p>
                         <h1 class="heading-xl" data-animate="fade-up">
-                            Selected <span class="text-accent">Work</span>
+                            <span>Selected</span> <span class="text-accent">Work</span>
                         </h1>
-                        <p class="hero-subtitle" style="margin-top: 2rem;" data-animate="fade-up">
+                        <p class="hero-subtitle hero-subtitle--inline" data-animate="fade-up">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vulputate justo ut elit sagittis, ac scelerisque ex vulputate. 
                         </p>
                     </div>
@@ -57,119 +64,101 @@
 
         <hr class="divider" />
 
-        <!-- PROJECTS GRID -->
+        <!-- PROJECTS MOSAIC -->
         <section class="section">
             <div class="container">
-                <div class="projects-grid">
+                <div class="projects-mosaic">
 
-                    <div class="project-card" data-animate="fade-up" data-hover="true">
-                        <div class="project-card-image">
-                            <div class="placeholder-img" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
-                                Project Preview</div>
-                        </div>
-                        <div class="project-card-body">
-                            <h3 class="project-card-title">E-Commerce Platform</h3>
-                            <p class="project-card-desc">A modern online store with seamless checkout experience,
-                                real-time inventory management, and responsive design across all devices.</p>
-                            <div class="project-card-tags">
-                                <span class="tag">HTML</span>
-                                <span class="tag">CSS</span>
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">Stripe</span>
+                    <div class="mosaic-row">
+                        <div class="mosaic-item mosaic-item--lg mosaic-left" data-animate="fade-up" data-hover="true">
+                            <div class="mosaic-img" style="background-image: linear-gradient(135deg, #1a1a2e, #16213e);"></div>
+                            <div class="mosaic-overlay">
+                                <h3 class="mosaic-title">E-Commerce Platform</h3>
+                                <p class="mosaic-desc">A modern online store with seamless checkout experience, real-time inventory management, and responsive design across all devices.</p>
+                                <div class="mosaic-tags">
+                                    <span class="tag">HTML</span>
+                                    <span class="tag">CSS</span>
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">Stripe</span>
+                                </div>
+                                <a href="#" class="mosaic-link">View Project <span class="arrow">→</span></a>
                             </div>
-                            <a href="#" class="project-card-link">View Project <span class="arrow">→</span></a>
+                        </div>
+
+                        <div class="mosaic-item mosaic-item--sm mosaic-right" data-animate="fade-up" data-hover="true">
+                            <div class="mosaic-img" style="background-image: linear-gradient(135deg, #0f3460, #533483);"></div>
+                            <div class="mosaic-overlay">
+                                <h3 class="mosaic-title">Portfolio Dashboard</h3>
+                                <p class="mosaic-desc">Interactive dashboard for tracking creative projects with analytics, team collaboration tools, and real-time notifications.</p>
+                                <div class="mosaic-tags">
+                                    <span class="tag">TypeScript</span>
+                                    <span class="tag">Node.js</span>
+                                    <span class="tag">PostgreSQL</span>
+                                </div>
+                                <a href="#" class="mosaic-link">View Project <span class="arrow">→</span></a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card" data-animate="fade-up" data-hover="true">
-                        <div class="project-card-image">
-                            <div class="placeholder-img" style="background: linear-gradient(135deg, #0f3460, #533483);">
-                                Project Preview</div>
-                        </div>
-                        <div class="project-card-body">
-                            <h3 class="project-card-title">Portfolio Dashboard</h3>
-                            <p class="project-card-desc">Interactive dashboard for tracking creative projects with
-                                analytics, team collaboration tools, and real-time notifications.</p>
-                            <div class="project-card-tags">
-                                <span class="tag">TypeScript</span>
-                                <span class="tag">Node.js</span>
-                                <span class="tag">PostgreSQL</span>
+                    <div class="mosaic-row">
+                        <div class="mosaic-item mosaic-item--sm mosaic-left" data-animate="fade-up" data-hover="true">
+                            <div class="mosaic-img" style="background-image: linear-gradient(135deg, #2d1b69, #11998e);"></div>
+                            <div class="mosaic-overlay">
+                                <h3 class="mosaic-title">Weather Application</h3>
+                                <p class="mosaic-desc">Beautiful weather app with location-based forecasts, animated weather icons, and 7-day predictions with hourly breakdowns.</p>
+                                <div class="mosaic-tags">
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">API</span>
+                                    <span class="tag">CSS Animations</span>
+                                </div>
+                                <a href="#" class="mosaic-link">View Project <span class="arrow">→</span></a>
                             </div>
-                            <a href="#" class="project-card-link">View Project <span class="arrow">→</span></a>
+                        </div>
+
+                        <div class="mosaic-item mosaic-item--lg mosaic-right" data-animate="fade-up" data-hover="true">
+                            <div class="mosaic-img" style="background-image: linear-gradient(135deg, #614385, #516395);"></div>
+                            <div class="mosaic-overlay">
+                                <h3 class="mosaic-title">Task Management Tool</h3>
+                                <p class="mosaic-desc">Kanban-style task manager with drag-and-drop functionality, deadline tracking, and priority labeling system.</p>
+                                <div class="mosaic-tags">
+                                    <span class="tag">HTML</span>
+                                    <span class="tag">CSS</span>
+                                    <span class="tag">JavaScript</span>
+                                    <span class="tag">Drag &amp; Drop API</span>
+                                </div>
+                                <a href="#" class="mosaic-link">View Project <span class="arrow">→</span></a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="project-card" data-animate="fade-up" data-hover="true">
-                        <div class="project-card-image">
-                            <div class="placeholder-img" style="background: linear-gradient(135deg, #2d1b69, #11998e);">
-                                Project Preview</div>
-                        </div>
-                        <div class="project-card-body">
-                            <h3 class="project-card-title">Weather Application</h3>
-                            <p class="project-card-desc">Beautiful weather app with location-based forecasts, animated
-                                weather icons, and 7-day predictions with hourly breakdowns.</p>
-                            <div class="project-card-tags">
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">API</span>
-                                <span class="tag">CSS Animations</span>
+                    <div class="mosaic-row">
+                        <div class="mosaic-item mosaic-item--lg mosaic-left" data-animate="fade-up" data-hover="true">
+                            <div class="mosaic-img" style="background-image: linear-gradient(135deg, #c94b4b, #4b134f);"></div>
+                            <div class="mosaic-overlay">
+                                <h3 class="mosaic-title">Music Visualizer</h3>
+                                <p class="mosaic-desc">Real-time audio visualization using Web Audio API with multiple visual modes and customizable color schemes.</p>
+                                <div class="mosaic-tags">
+                                    <span class="tag">Canvas</span>
+                                    <span class="tag">Web Audio API</span>
+                                    <span class="tag">JavaScript</span>
+                                </div>
+                                <a href="#" class="mosaic-link">View Project <span class="arrow">→</span></a>
                             </div>
-                            <a href="#" class="project-card-link">View Project <span class="arrow">→</span></a>
                         </div>
-                    </div>
 
-                    <div class="project-card" data-animate="fade-up" data-hover="true">
-                        <div class="project-card-image">
-                            <div class="placeholder-img" style="background: linear-gradient(135deg, #614385, #516395);">
-                                Project Preview</div>
-                        </div>
-                        <div class="project-card-body">
-                            <h3 class="project-card-title">Task Management Tool</h3>
-                            <p class="project-card-desc">Kanban-style task manager with drag-and-drop functionality,
-                                deadline tracking, and priority labeling system.</p>
-                            <div class="project-card-tags">
-                                <span class="tag">HTML</span>
-                                <span class="tag">CSS</span>
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">Drag & Drop API</span>
+                        <div class="mosaic-item mosaic-item--sm mosaic-right" data-animate="fade-up" data-hover="true">
+                            <div class="mosaic-img" style="background-image: linear-gradient(135deg, #0c0c0c, #1e3c72);"></div>
+                            <div class="mosaic-overlay">
+                                <h3 class="mosaic-title">Personal Blog</h3>
+                                <p class="mosaic-desc">Minimal blog platform with markdown support, syntax highlighting, dark mode, and SEO optimization built from scratch.</p>
+                                <div class="mosaic-tags">
+                                    <span class="tag">HTML</span>
+                                    <span class="tag">CSS</span>
+                                    <span class="tag">Markdown</span>
+                                    <span class="tag">JavaScript</span>
+                                </div>
+                                <a href="#" class="mosaic-link">View Project <span class="arrow">→</span></a>
                             </div>
-                            <a href="#" class="project-card-link">View Project <span class="arrow">→</span></a>
-                        </div>
-                    </div>
-
-                    <div class="project-card" data-animate="fade-up" data-hover="true">
-                        <div class="project-card-image">
-                            <div class="placeholder-img" style="background: linear-gradient(135deg, #c94b4b, #4b134f);">
-                                Project Preview</div>
-                        </div>
-                        <div class="project-card-body">
-                            <h3 class="project-card-title">Music Visualizer</h3>
-                            <p class="project-card-desc">Real-time audio visualization using Web Audio API with multiple
-                                visual modes and customizable color schemes.</p>
-                            <div class="project-card-tags">
-                                <span class="tag">Canvas</span>
-                                <span class="tag">Web Audio API</span>
-                                <span class="tag">JavaScript</span>
-                            </div>
-                            <a href="#" class="project-card-link">View Project <span class="arrow">→</span></a>
-                        </div>
-                    </div>
-
-                    <div class="project-card" data-animate="fade-up" data-hover="true">
-                        <div class="project-card-image">
-                            <div class="placeholder-img" style="background: linear-gradient(135deg, #0c0c0c, #1e3c72);">
-                                Project Preview</div>
-                        </div>
-                        <div class="project-card-body">
-                            <h3 class="project-card-title">Personal Blog</h3>
-                            <p class="project-card-desc">Minimal blog platform with markdown support, syntax
-                                highlighting, dark mode, and SEO optimization built from scratch.</p>
-                            <div class="project-card-tags">
-                                <span class="tag">HTML</span>
-                                <span class="tag">CSS</span>
-                                <span class="tag">Markdown</span>
-                                <span class="tag">JavaScript</span>
-                            </div>
-                            <a href="#" class="project-card-link">View Project <span class="arrow">→</span></a>
                         </div>
                     </div>
 
@@ -179,10 +168,10 @@
         <hr class="divider" />
 
         <!-- CTA -->
-        <section class="section" style="text-align: center;">
+        <section class="section section-centered">
             <div class="container">
                 <h2 class="heading-md" data-animate="fade-up">Have a project in mind?</h2>
-                <p class="text-muted" style="max-width: 500px; margin: 1.5rem auto 2.5rem;" data-animate="fade-up">
+                <p class="text-muted section-subtitle" data-animate="fade-up">
                     I'm always open to new opportunities and interesting projects. Let's create something amazing
                     together.
                 </p>
@@ -199,26 +188,26 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <div class="footer-brand">Portfolio</div>
+                    <p class="footer-brand">Portfolio</p>
                     <p class="footer-desc">Developer & Designer creating digital experiences from Czech Republic.</p>
                 </div>
                 <div>
-                    <p class="footer-heading">Navigation</p>
-                    <div class="footer-links">
+                    <h3 class="footer-heading">Navigation</h3>
+                    <nav class="footer-links">
                         <a href="home.html">Home</a>
                         <a href="projects.html">Projects</a>
                         <a href="about.html">About</a>
                         <a href="contact.html">Contact</a>
-                    </div>
+                    </nav>
                 </div>
                 <div>
-                    <p class="footer-heading">Connect</p>
-                    <div class="footer-links">
-                        <a href="#">GitHub</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="#">Discord</a>
-                        <a href="#">Email</a>
-                    </div>
+                    <h3 class="footer-heading">Connect</h3>
+                    <nav class="footer-links">
+                        <a href="https://github.com/dabucz" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="https://discord.com/users/dabucz" target="_blank" rel="noopener noreferrer">Discord</a>
+                        <a href="mailto:inquire@dabu.cz">inquire@dabu.cz</a>
+                    </nav>
                 </div>
             </div>
             <div class="footer-bottom">
