@@ -104,12 +104,7 @@ h4 {
 }
 
 .heading-xl {
-    font-size: clamp(2.5rem, 7vw, 7rem);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    width: 100%;
-    white-space: nowrap;
+    font-size: clamp(3rem, 10vw, 9rem);
 }
 
 .heading-md {
