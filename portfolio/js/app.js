@@ -293,6 +293,7 @@
 
     function initMagnetic() {
         if (!CONFIG.mouseEnabled) return;
+        if (window.matchMedia("(pointer: coarse)").matches) return;
         const magneticEls = document.querySelectorAll(".magnetic");
 
         magneticEls.forEach((el) => {
