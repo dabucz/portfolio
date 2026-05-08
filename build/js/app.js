@@ -440,21 +440,6 @@
 
         form.addEventListener("submit", (e) => {
             e.preventDefault();
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-
-            btn.innerHTML = '✓ Sent! <span class="arrow">→</span>';
-            btn.style.background = "var(--accent)";
-            btn.style.color = "var(--bg)";
-            btn.style.borderColor = "var(--accent)";
-
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = "";
-                btn.style.color = "";
-                btn.style.borderColor = "";
-                form.reset();
-            }, 3000);
         });
     }
 

@@ -1105,7 +1105,12 @@ body.cursor-disabled textarea {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: clamp(3rem, 6vw, 8rem);
-    align-items: start;
+    align-items: stretch;
+}
+
+.about-story {
+    display: flex;
+    flex-direction: column;
 }
 
 .about-story p {
@@ -1120,7 +1125,8 @@ body.cursor-disabled textarea {
 }
 
 .about-story-cta {
-    margin-top: 3rem;
+    margin-top: auto;
+    padding-top: 3rem;
 }
 
 .about-image {
@@ -1128,8 +1134,14 @@ body.cursor-disabled textarea {
     top: calc(var(--header-height) + 2rem);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    aspect-ratio: 4 / 5;
     background: var(--bg-elevated);
+}
+
+.about-image iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
 }
 
 .about-image .placeholder-avatar {

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prezentace — Portfolio dabu.cz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0a0a0a;
+            --bg-card: #111;
+            --border: #1e1e1e;
+            --text: #f0efe9;
+            --muted: #777;
+            --accent: #c8ff00;
+            --accent-dim: rgba(200, 255, 0, 0.08);
+            --radius: 12px;
+            --font-heading: "Syne", sans-serif;
+            --font-body: "Space Grotesk", sans-serif;
+            --font-mono: "Space Mono", monospace;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SLIDES */
+        .slides {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .slide.exit {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        .slide-inner {
+            max-width: 820px;
+            width: 100%;
+        }
+
+        /* SLIDE NUMBER */
+        .slide-num {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* HEADINGS */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .accent { color: var(--accent); }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 580px;
+        }
+
+        /* DIVIDER */
+        .divider {
+            width: 48px;
+            height: 2px;
+            background: var(--accent);
+            margin: 1.5rem 0;
+        }
+
+        /* CARDS GRID */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* TAGS */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            background: var(--accent-dim);
+            border: 1px solid rgba(200, 255, 0, 0.25);
+            color: var(--accent);
+            border-radius: 6px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* LIST */
+        .list {
+            list-style: none;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 1rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .list li::before {
+            content: '→';
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .list li strong { color: var(--text); }
+
+        /* NAV BAR */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .nav-info {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 8px;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .nav-btn:disabled { opacity: 0.3; cursor: default; }
+        .nav-btn:disabled:hover { border-color: var(--border); color: var(--text); }
+
+        /* PROGRESS */
+        .progress {
+            height: 2px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress">
+    <div class="progress-bar" id="progress"></div>
+</div>
+
+<div class="slides" id="slides">
+
+    <!-- SLIDE 1 — Úvod -->
+    <div class="slide active">
+        <div class="slide-inner">
+            <p class="slide-num">01 / 04 — Úvod</p>
+            <h1>Portfolio <span class="accent">dabu.cz</span></h1>
+            <div class="divider"></div>
+            <p class="subtitle">
+                Osobní portfolio webová stránka Daniela Kryhuta — studenta kybernetické bezpečnosti na SSPŠ v Praze,
+                frontendového vývojáře a UI designéra.
+            </p>
+            <ul class="list" style="margin-top:2rem;">
+                <li>Víceodstránkový web rozdělený do čtyř sekcí: Domů, Projekty, O mně, Kontakt</li>
+                <li>Čistý, tmavý design zaměřený na typografii a animace</li>
+                <li>Vytvořeno jako školní projekt (WBA) i jako reálné portfolio</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SLIDE 2 — Pro koho -->
+    <div class="slide">
+        <div class="slide-inner">
+            <p class="slide-num">02 / 04 — Cílová skupina</p>
+            <h2>Pro koho je web <span class="accent">určen?</span></h2>
+            <div class="divider"></div>
+            <ul class="list">
+                <li><strong>Potenciální klienti</strong> — hledají vývojáře nebo designéra na zakázku</li>
+                <li><strong>Zaměstnavatelé</strong> — chtějí vidět reálné výsledky práce</li>
+                <li><strong>Učitelé & hodnotitelé</strong> — školní projekt v rámci WBA</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SLIDE 3 — Technologie -->
+    <div class="slide">
+        <div class="slide-inner">
+            <p class="slide-num">03 / 04 — Technologie</p>
+            <h2>Použité <span class="accent">technologie</span></h2>
+            <div class="divider"></div>
+            <ul class="list">
+                <li><strong>HTML5 + CSS3 / SCSS</strong> — struktura a stylování bez frameworků</li>
+                <li><strong>Vanilla JavaScript</strong> — animace, interakce, magnetický kurzor</li>
+                <li><strong>GSAP + ScrollTrigger + SplitText</strong> — scroll animace a typografické efekty</li>
+                <li><strong>Lenis</strong> — plynulé scrollování</li>
+                <li><strong>Google Maps embed</strong> — mapa lokace na stránce O mně</li>
+            </ul>
+            <div class="tags">
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">GSAP</span>
+                <span class="tag">Lenis</span>
+                <span class="tag">Google Maps</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4 — Shrnutí -->
+    <div class="slide">
+        <div class="slide-inner">
+            <p class="slide-num">04 / 04 — Shrnutí</p>
+            <h2>Co web <span class="accent">splňuje?</span></h2>
+            <div class="divider"></div>
+            <ul class="list">
+                <li>Přehledná prezentace projektů, dovedností a zkušeností</li>
+                <li>Responzivní, animovaný, bez backendového frameworku</li>
+                <li>Funguje jako reálné portfolio i školní projekt</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="nav">
+    <span class="nav-info" id="nav-info">Slide 1 ze 4</span>
+    <div class="nav-btns">
+        <button class="nav-btn" id="btn-prev" onclick="go(-1)" disabled>← Zpět</button>
+        <button class="nav-btn" id="btn-next" onclick="go(1)">Další →</button>
+    </div>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let current = 0;
+
+    function go(dir) {
+        const next = current + dir;
+        if (next < 0 || next >= total) return;
+
+        slides[current].classList.add('exit');
+        slides[current].classList.remove('active');
+
+        setTimeout(() => slides[current - dir] && slides[current - dir].classList.remove('exit'), 450);
+
+        current = next;
+        slides[current].classList.remove('exit');
+        slides[current].classList.add('active');
+
+        document.getElementById('nav-info').textContent = `Slide ${current + 1} ze ${total}`;
+        document.getElementById('btn-prev').disabled = current === 0;
+        document.getElementById('btn-next').disabled = current === total - 1;
+        document.getElementById('progress').style.width = `${((current + 1) / total) * 100}%`;
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+    });
+
+    document.getElementById('progress').style.width = `${(1 / total) * 100}%`;
+</script>
+
+</body>
+</html>
